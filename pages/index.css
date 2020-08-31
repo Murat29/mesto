@@ -20,6 +20,7 @@
 @import url(../blocks/cards/__image/_reflection/cards__image_reflection_mirror.css);
 @import url(../blocks/cards/__inner/cards__inner.css);
 @import url(../blocks/cards/__title/cards__title.css);
+@import url(../blocks/button/_type/button_type_like.css);
 @import url(../blocks/cards/__like/cards__like.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

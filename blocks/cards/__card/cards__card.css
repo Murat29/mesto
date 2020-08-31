@@ -1,3 +1,4 @@
 .cards__card {
     border-radius: 10px;
+    overflow: hidden;
 }

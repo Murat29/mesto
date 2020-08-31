@@ -10,7 +10,6 @@
 
 @media screen and (max-width: 539px) {
     .button_type_close {
-        top: -40.7px;
         right: 0;
     }
 }
