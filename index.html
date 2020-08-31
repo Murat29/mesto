@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body class="root">
+    <header class="header">
+        <img src="./images/logo.svg" alt="Логотип." class="header__logo">
+    </header>
+
+    <div class="main">
+        <section class="profile">
+            <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар.">
+
+            <div class="profile__info">
+                <div class="profile__container">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button class="button button_type_edit"></button>
+                </div>
+
+                <p class="profile__metier">Исследователь океана</p>
+            </div>
+
+            <button class="button button_type_add"></button>
+        </section>
+
+        <section class="cards">
+            <ul class="cards__container">
+                <li class="cards__card">
+                    <img src="./images/karachaevsk.jpg" alt="Каменное, потрепанное временем здание." class="cards__image">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Карачаевск</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+
+                <li class="cards__card">
+                    <img src="./images/gora-Elbrus.jpg" alt="Гора Эльбрус, на фоне холмов." class="cards__image">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Гора Эльбрус</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+
+                <li class="cards__card">
+                    <img src="./images/Dombay.jpg" alt="Лес, плавно перетекающий в горные хребты." class="cards__image">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Домбай</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+
+                <li class="cards__card">
+                    <img src="./images/gora-Elbrus.jpg" alt="Гора Эльбрус, на фоне холмов." class="cards__image cards__image_reflection_mirror">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Гора Эльбрус</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+
+                <li class="cards__card">
+                    <img src="./images/Dombay.jpg" alt="Лес, плавно перетекающий в горные хребты." class="cards__image cards__image_reflection_mirror">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Домбай</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+
+                <li class="cards__card">
+                    <img src="./images/karachaevsk.jpg" alt="Каменное, потрепанное временем здание." class="cards__image cards__image_reflection_mirror">
+
+                    <div class="cards__inner">
+                        <h2 class="cards__title">Карачаево-Черкесия</h2>
+                        <img src="./images/like.svg" alt="Лайк." class="cards__like">
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <address class="footer__copyright">&copy; 2020 Ходжатов Акмурат</address>
+    </footer>
+
+    <section class="popup">
+        <div class="popup__container">
+            <button class="button button_type_close">
+                <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+            </button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+
+            <fieldset class="popup__input-container">
+                <input class="popup__input js-input-name" type="text">
+                <input class="popup__input js-input-metier" type="text">
+            </fieldset>
+
+            <button class="button button_type_save">Сохранить</button>
+        </div>
+    </section>
+
+    <script src="./index.js" defer></script>
+
+</body>
+
+</html>
