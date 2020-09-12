@@ -12,3 +12,39 @@
 .popup__input:last-child {
     margin-bottom: 0px;
 }
+
+.popup__input::-webkit-input-placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #C4C4C4;
+}
+
+.popup__input::-moz-placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #C4C4C4;
+}
+
+.popup__input::-ms-input-placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #C4C4C4;
+}
+
+.popup__input::placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #C4C4C4;
+}
+
+@media screen and (max-width: 572px) {
+    .popup__input {
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 20px;
+    }
+}

@@ -23,7 +23,7 @@
                     <button class="button button_type_edit"></button>
                 </div>
 
-                <p class="profile__metier">Исследователь океана</p>
+                <p class="profile__job">Исследователь океана</p>
             </div>
 
             <button class="button button_type_add"></button>
@@ -31,59 +31,18 @@
 
         <section class="cards">
             <ul class="cards__container">
-                <li class="cards__card">
-                    <img src="./images/karachaevsk.jpg" alt="Каменное, потрепанное временем здание." class="cards__image">
 
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Карачаевск</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
+                <template id="card">
+                    <li class="cards__card">
+                        <img src="" alt="" class="cards__image">
+                        <button class="button button_type_delete"></button>
+                        <div class="cards__inner">
+                            <h2 class="cards__title"></h2>
+                            <button class="button button_type_like"></button>
+                        </div>
+                    </li>
+                </template>
 
-                <li class="cards__card">
-                    <img src="./images/gora-Elbrus.jpg" alt="Гора Эльбрус, на фоне холмов." class="cards__image">
-
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
-
-                <li class="cards__card">
-                    <img src="./images/Dombay.jpg" alt="Лес, плавно перетекающий в горные хребты." class="cards__image">
-
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
-
-                <li class="cards__card">
-                    <img src="./images/gora-Elbrus.jpg" alt="Гора Эльбрус, на фоне холмов." class="cards__image cards__image_reflection_mirror">
-
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
-
-                <li class="cards__card">
-                    <img src="./images/Dombay.jpg" alt="Лес, плавно перетекающий в горные хребты." class="cards__image cards__image_reflection_mirror">
-
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
-
-                <li class="cards__card">
-                    <img src="./images/karachaevsk.jpg" alt="Каменное, потрепанное временем здание." class="cards__image cards__image_reflection_mirror">
-
-                    <div class="cards__inner">
-                        <h2 class="cards__title">Карачаево-Черкесия</h2>
-                        <button class="button button_type_like"><img src="./images/like.svg" alt="Лайк." class="cards__like"></button>
-                    </div>
-                </li>
             </ul>
         </section>
     </main>
@@ -92,20 +51,38 @@
         <address class="footer__copyright">&copy; 2020 Ходжатов Акмурат</address>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit ">
         <div class="popup__container">
             <button class="button button_type_close">
-                <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
-            </button>
+                        <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+                    </button>
             <h2 class="popup__title">Редактировать профиль</h2>
 
             <form class="popup__form">
                 <fieldset class="popup__input-container">
-                    <input class="popup__input popup__input_name" name="name" type="text" required>
-                    <input class="popup__input popup__input_metier" name="metier" type="text" required>
+                    <input class="popup__input popup__input_user-name" placeholder="Имя" type="text" required>
+                    <input class="popup__input popup__input_user-job" placeholder="Род деятельности" type="text" required>
                 </fieldset>
 
                 <button class="button button_type_save">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_add">
+        <div class="popup__container">
+            <button class="button button_type_close">
+                        <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+                    </button>
+            <h2 class="popup__title">Новое место</h2>
+
+            <form class="popup__form">
+                <fieldset class="popup__input-container">
+                    <input class="popup__input popup__input_card-name" type="text" placeholder="Название" required>
+                    <input class="popup__input popup__input_card-link" type="text" placeholder="Ссылка на картинку" required>
+                </fieldset>
+
+                <button class="button button_type_add-card">Создать</button>
             </form>
         </div>
     </div>

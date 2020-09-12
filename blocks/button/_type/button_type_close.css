@@ -8,8 +8,11 @@
     z-index: -1;
 }
 
-@media screen and (max-width: 539px) {
+@media screen and (max-width: 572px) {
     .button_type_close {
-        right: 0;
+        top: -30px;
+        right: -30px;
+        width: 30px;
+        height: 30px;
     }
 }
