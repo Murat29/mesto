@@ -32,7 +32,7 @@
         <section class="cards">
             <ul class="cards__container">
 
-                <template id="card">
+                <template class="card-template">
                     <li class="cards__card">
                         <img src="" alt="" class="cards__image">
                         <button class="button button_type_delete"></button>
@@ -84,6 +84,16 @@
 
                 <button class="button button_type_add-card">Создать</button>
             </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_img">
+        <div class="popup__img-container">
+            <button class="button button_type_close">
+                <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+            </button>
+            <img class="popup__img" src="">
+            <h3 class="popup__img-caption"></h3>
         </div>
     </div>
 
