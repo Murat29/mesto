@@ -43,20 +43,47 @@ const inputCardLink = addPopup.querySelector('.popup__input_card-link');
 const imgPopup = document.querySelector('.popup_type_img')
 const increaseImg = imgPopup.querySelector('.popup__img')
 const captionImg = imgPopup.querySelector('.popup__img-caption')
+
+const state = {
+        mode: "startCard",
+    }
     //добавление начальных карточек на страницу
 function render() {
     initialCards.forEach(renderItem);
     setListeners();
-
+    state.mode = "addCard";
 };
 render();
 
-function renderItem(item, index) {
-    item = cardTemplate.cloneNode(true);
-    item.querySelector('.cards__title').textContent = initialCards[index].name;
-    item.querySelector('.cards__image').src = initialCards[index].link;
-    cardsContainer.append(item);
+
+
+function renderItem(item) {
+    const card = cardTemplate.cloneNode(true);
+    if (state.mode === "startCard") {
+        card.querySelector('.cards__title').textContent = item.name;
+        card.querySelector('.cards__image').src = item.link;
+    } else if (state.mode = "addCard") {
+        card.querySelector('.cards__title').textContent = inputCardrName.value;
+        card.querySelector('.cards__image').src = inputCardLink.value;
+    }
+
+
+    //лайк
+    card.querySelectorAll(".button_type_like").forEach((btn) => {
+        btn.addEventListener("click", handleLike);
+    });
+    //удаление карточек
+    card.querySelectorAll(".button_type_delete").forEach((btn) => {
+        btn.addEventListener("click", deleteCard);
+    });
+    //открытие попапа с картинкой 
+    card.querySelectorAll(".cards__image").forEach((btn) => {
+        btn.addEventListener("click", openImgPopup);
+    });
+    cardsContainer.prepend(card);
 }
+
+
 //функция лайка
 function handleLike(evt) {
     evt.target.classList.toggle('button_active');
@@ -103,22 +130,11 @@ function deleteCard(evt) {
 
 //обработчик событий
 function setListeners() {
-    //удаление начальных карточек
-    cardsContainer.querySelectorAll(".button_type_delete").forEach((btn) => {
-        btn.addEventListener("click", deleteCard);
-    });
-    //лайк на начальные карточки
-    document.querySelectorAll(".button_type_like").forEach((btn) => {
-        btn.addEventListener("click", handleLike);
-    });
     //открытие попапа редактирования
     document.querySelector('.button_type_edit').addEventListener('click', openEditPopup);
     //открытие попапа добавления карточек
     document.querySelector('.button_type_add').addEventListener('click', openAddPopup);
-    //открытие попапа с изображением
-    document.querySelectorAll(".cards__image").forEach((btn) => {
-        btn.addEventListener("click", openImgPopup);
-    });
+
     //закрытие попапов
     document.querySelectorAll(".button_type_close").forEach((btn) => {
         btn.addEventListener("click", popupClose);
@@ -145,23 +161,6 @@ function formSubmitHandlerEdit(evt) {
 // добавление новой карточки
 function formSubmitHandlerAdd(evt) {
     evt.preventDefault();
-    const card = cardTemplate.cloneNode(true);
-    card.querySelector('.cards__title').textContent = inputCardrName.value;
-    card.querySelector('.cards__image').src = inputCardLink.value;
-
-    //лайк на динамические карточки
-    card.querySelectorAll(".button_type_like").forEach((btn) => {
-        btn.addEventListener("click", handleLike);
-    });
-    //удаление динамических карточек
-    card.querySelectorAll(".button_type_delete").forEach((btn) => {
-        btn.addEventListener("click", deleteCard);
-    });
-    card.querySelectorAll(".cards__image").forEach((btn) => {
-        btn.addEventListener("click", openImgPopup);
-    });
-
-
-    cardsContainer.prepend(card);
+    renderItem();
     popupClose(evt);
 }
