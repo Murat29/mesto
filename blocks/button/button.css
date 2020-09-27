@@ -13,6 +13,13 @@
     background-position: center;
 }
 
-.button:hover {
+.button:disabled {
+    border: 1px solid black;
+    color: black;
+    background: white;
+    opacity: .2;
+}
+
+.button:hover:enabled {
     opacity: .6;
 }

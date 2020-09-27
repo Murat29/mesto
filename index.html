@@ -58,13 +58,14 @@
                     </button>
             <h2 class="popup__title">Редактировать профиль</h2>
 
-            <form class="popup__form">
+            <form class="popup__form" novalidate>
                 <fieldset class="popup__input-container">
-                    <input class="popup__input popup__input_user-name" placeholder="Имя" type="text" required>
-                    <input class="popup__input popup__input_user-job" placeholder="Род деятельности" type="text" required>
+                    <input class="popup__input" id="popup__input_user-name" placeholder="Имя" minlength="2" maxlength="40" type="text" required>
+                    <span class="popup__input-error" id="popup__input_user-name-error">Вы пропустили это поле.</span>
+                    <input class="popup__input" id="popup__input_user-job" minlength="2" maxlength="200" placeholder="Род деятельности" type="text" required>
+                    <span class="popup__input-error" id="popup__input_user-job-error">Вы пропустили это поле.</span>
+                    <button class="button button_type_save">Сохранить</button>
                 </fieldset>
-
-                <button class="button button_type_save">Сохранить</button>
             </form>
         </div>
     </div>
@@ -76,13 +77,14 @@
                     </button>
             <h2 class="popup__title">Новое место</h2>
 
-            <form class="popup__form">
+            <form class="popup__form" novalidate>
                 <fieldset class="popup__input-container">
-                    <input class="popup__input popup__input_card-name" type="text" placeholder="Название" required>
-                    <input class="popup__input popup__input_card-link" type="text" placeholder="Ссылка на картинку" required>
+                    <input class="popup__input" id="popup__input_card-name" minlength="2" maxlength="30" type="text" placeholder="Название" required>
+                    <span class="popup__input-error" id="popup__input_card-name-error">Вы пропустили это поле.</span>
+                    <input class="popup__input" id="popup__input_card-link" type="url" placeholder="Ссылка на картинку" required>
+                    <span class="popup__input-error" id="popup__input_card-link-error">Вы пропустили это поле.</span>
+                    <button class="button button_type_add-card">Создать</button>
                 </fieldset>
-
-                <button class="button button_type_add-card">Создать</button>
             </form>
         </div>
     </div>
@@ -97,6 +99,7 @@
         </div>
     </div>
 
+    <script src="./scripts/validate.js" defer></script>
     <script src="./scripts/index.js" defer></script>
 
 </body>

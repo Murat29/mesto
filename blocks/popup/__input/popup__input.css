@@ -1,16 +1,17 @@
 .popup__input {
     width: 100%;
     height: 27.26px;
-    margin-bottom: 40px;
+    margin-bottom: 5px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
+    outline: none;
 }
 
-.popup__input:last-child {
-    margin-bottom: 0px;
+.popup__input:focus {
+    border-bottom-color: black;
 }
 
 .popup__input::-webkit-input-placeholder {
@@ -45,6 +46,21 @@
     .popup__input {
         font-size: 12px;
         line-height: 15px;
-        margin-bottom: 20px;
+    }
+    .popup__input::-webkit-input-placeholder {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .popup__input::-moz-placeholder {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .popup__input::-ms-input-placeholder {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .popup__input::placeholder {
+        font-size: 12px;
+        line-height: 15px;
     }
 }
