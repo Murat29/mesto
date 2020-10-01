@@ -50,11 +50,12 @@ function render() {
 };
 
 //функция создание карточки
-function renderItem(item) {
+function getCardElement(item) {
     const card = cardTemplate.cloneNode(true);
+    const cardImage = card.querySelector('.cards__image');
     card.querySelector('.cards__title').textContent = item.name;
-    card.querySelector('.cards__image').src = item.link;
-    card.querySelector('.cards__image').alt = `Изображение места ${item.name}`;
+    cardImage.src = item.link;
+    cardImage.alt = `Изображение места ${item.name}`;
 
     //слушатель открытия попапа с увеличенной картинкой
     card.querySelector('.cards__image').addEventListener('click', () => {
@@ -69,13 +70,12 @@ function renderItem(item) {
     card.querySelector('.button_type_delete').addEventListener('click', (evt) => {
         deleteCard(evt);
     });
-
-    //добавление карточки
-    getCardElement(card);
+    return card;
 }
 
 //функция добавление карточки
-function getCardElement(card) {
+function renderItem(data) {
+    const card = getCardElement(data);
     cardsContainer.prepend(card);
 }
 
@@ -92,13 +92,11 @@ function openEditPopup() {
 }
 
 //функция закрытия попапа, кликом на Esc
-function ClosePopupEsc(evt) {
-    if (evt.key === "Escape") {
-        editPopup.classList.remove('popup_is-opened');
-        addPopup.classList.remove('popup_is-opened');
-        imgPopup.classList.remove('popup_is-opened');
-        document.removeEventListener('keydown', ClosePopupEsc);
-        // document.querySelector('.popup_is-opened').remove('popup_is-opened');
+function closePopupEsc(popup) {
+    document.onkeydown = function(evt) {
+        if (evt.key === "Escape") {
+            closePopup(popup);
+        }
     }
 }
 
@@ -116,23 +114,29 @@ function openImgPopup(item) {
     openPopup(imgPopup);
 }
 
+//функция открытия попапов
 function openPopup(popup) {
     popup.classList.add('popup_is-opened');
-    document.addEventListener('keydown', ClosePopupEsc);
+    document.addEventListener('keydown', closePopupEsc(popup));
 }
 
 //функция закрытия попапов
-function closePopup(evt) {
-    evt.target.closest('.popup').classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', ClosePopupEsc);
+function closePopup(popup) {
+    popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', closePopupEsc);
+
 }
 
 //функция закрытия попапа, кликом на затемненную область
-function closePopupByClickOnOverlay(evt) {
-    if (evt.target !== evt.currentTarget) {
-        return;
+function closePopupByClickOnOverlay(popap) {
+    popap.onclick = function(evt) {
+
+        if (evt.target !== evt.currentTarget) {
+            return;
+        }
+        closePopup(popap);
     }
-    closePopup(evt);
+
 }
 //функция удаление карточки
 function deleteCard(evt) {
@@ -147,13 +151,20 @@ function setListeners() {
     document.querySelector('.button_type_add').addEventListener('click', openAddPopup);
 
     //закрытие попапов
-    document.querySelectorAll(".button_type_close").forEach((btn) => {
-        btn.addEventListener("click", closePopup);
+    editPopup.querySelector(".button_type_close").addEventListener("click", () => {
+        closePopup(editPopup)
     });
+    addPopup.querySelector(".button_type_close").addEventListener("click", () => {
+        closePopup(addPopup)
+    });
+    imgPopup.querySelector(".button_type_close").addEventListener("click", () => {
+        closePopup(imgPopup)
+    });
+
     //закрытие попапов, кликом на затемненную область
-    editPopup.addEventListener('click', closePopupByClickOnOverlay);
-    addPopup.addEventListener('click', closePopupByClickOnOverlay);
-    imgPopup.addEventListener('click', closePopupByClickOnOverlay);
+    editPopup.addEventListener('click', () => closePopupByClickOnOverlay(editPopup));
+    addPopup.addEventListener('click', () => closePopupByClickOnOverlay(addPopup));
+    imgPopup.addEventListener('click', () => closePopupByClickOnOverlay(imgPopup));
     //отправка форм
     editPopup.addEventListener('submit', formSubmitHandlerEdit);
     addPopup.addEventListener('submit', formSubmitHandlerAdd);
@@ -166,14 +177,14 @@ function formSubmitHandlerEdit(evt) {
     userName.textContent = inputUserName.value;
     userJob.textContent = inputUserJob.value;
 
-    closePopup(evt);
+    closePopup(editPopup);
 }
 
 // добавление новой карточки
 function formSubmitHandlerAdd(evt) {
     evt.preventDefault();
     renderItem({ name: inputCardrName.value, link: inputCardLink.value });
-    closePopup(evt);
+    closePopup(addPopup);
 }
 
 render();
