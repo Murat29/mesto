@@ -26,20 +26,20 @@ function checkInputValidity(formElement, inputElement) {
 };
 
 function toggleButtonState(inputList, buttonElement) {
-    const hasinvalidInput = inputList.some(
-        inputElement => !inputElement.validity.valid);
-    if (hasinvalidInput) {
+
+    if (checkFormValidity(inputList)) {
         buttonElement.setAttribute('disabled', true);
         buttonElement.classList.add(params.inactiveButtonClass);
-
     } else {
         buttonElement.removeAttribute('disabled');
         buttonElement.classList.remove(params.inactiveButtonClass);
-
     }
-
-
 };
+
+function checkFormValidity(inputList) {
+    return hasinvalidInput = inputList.some(
+        inputElement => !inputElement.validity.valid);
+}
 
 function setEventListeners(formElement) {
     const inputList = Array.from(formElement.querySelectorAll(params.inputSelector));
