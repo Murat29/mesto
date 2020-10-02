@@ -63,13 +63,10 @@ function getCardElement(item) {
     });
 
     //слушатель кнопки лайк
-    card.querySelector('.button_type_like').addEventListener('click', (evt) => {
-        handleLike(evt);
-    });
+    card.querySelector('.button_type_like').addEventListener('click', handleLike);
     //слушатель кнопки удаления карточки
-    card.querySelector('.button_type_delete').addEventListener('click', (evt) => {
-        deleteCard(evt);
-    });
+    card.querySelector('.button_type_delete').addEventListener('click', deleteCard);
+
     return card;
 }
 
@@ -92,11 +89,10 @@ function openEditPopup() {
 }
 
 //функция закрытия попапа, кликом на Esc
-function closePopupEsc(popup) {
-    document.onkeydown = function(evt) {
-        if (evt.key === "Escape") {
-            closePopup(popup);
-        }
+function closePopupEsc(evt) {
+    if (evt.key === "Escape") {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closePopup(openedPopup);
     }
 }
 
@@ -117,24 +113,25 @@ function openImgPopup(item) {
 //функция открытия попапов
 function openPopup(popup) {
     popup.classList.add('popup_is-opened');
-    document.addEventListener('keydown', closePopupEsc(popup));
+    document.addEventListener('keydown', closePopupEsc);
+    popup.addEventListener('click', closePopupByClickOnOverlay);
 }
 
 //функция закрытия попапов
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened');
     document.removeEventListener('keydown', closePopupEsc);
-
+    popup.removeEventListener('click', closePopupByClickOnOverlay);
 }
 
 //функция закрытия попапа, кликом на затемненную область
-function closePopupByClickOnOverlay(popap) {
-    popap.onclick = function(evt) {
+function closePopupByClickOnOverlay(evt) {
 
-        if (evt.target !== evt.currentTarget) {
-            return;
-        }
-        closePopup(popap);
+    if (evt.target !== evt.currentTarget) {
+        return;
+    } else {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closePopup(openedPopup);
     }
 
 }
@@ -161,10 +158,6 @@ function setListeners() {
         closePopup(imgPopup)
     });
 
-    //закрытие попапов, кликом на затемненную область
-    editPopup.addEventListener('click', () => closePopupByClickOnOverlay(editPopup));
-    addPopup.addEventListener('click', () => closePopupByClickOnOverlay(addPopup));
-    imgPopup.addEventListener('click', () => closePopupByClickOnOverlay(imgPopup));
     //отправка форм
     editPopup.addEventListener('submit', formSubmitHandlerEdit);
     addPopup.addEventListener('submit', formSubmitHandlerAdd);
