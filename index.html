@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
+
+    <script src="./scripts/index.js" type="module"></script>
+    <script src="./scripts/Card.js" type="module"></script>
+    <script src="./scripts/FormValidator.js" type="module"></script>
 </head>
 
 <body class="root">
@@ -58,7 +62,7 @@
                     </button>
             <h2 class="popup__title">Редактировать профиль</h2>
 
-            <form class="popup__form" novalidate>
+            <form class="popup__form popup__form-edit" novalidate>
                 <fieldset class="popup__input-container">
                     <input class="popup__input" id="popup__input_user-name" placeholder="Имя" minlength="2" maxlength="40" type="text" required>
                     <span class="popup__input-error" id="popup__input_user-name-error">Вы пропустили это поле.</span>
@@ -77,7 +81,7 @@
                     </button>
             <h2 class="popup__title">Новое место</h2>
 
-            <form class="popup__form" novalidate>
+            <form class="popup__form popup__form-add" novalidate>
                 <fieldset class="popup__input-container">
                     <input class="popup__input" id="popup__input_card-name" minlength="2" maxlength="30" type="text" placeholder="Название" required>
                     <span class="popup__input-error" id="popup__input_card-name-error">Вы пропустили это поле.</span>
@@ -98,10 +102,6 @@
             <h3 class="popup__img-caption"></h3>
         </div>
     </div>
-
-    <script src="./scripts/index.js" defer></script>
-    <script src="./scripts/validate.js" defer></script>
-
 </body>
 
 </html>
