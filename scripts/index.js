@@ -40,7 +40,6 @@ const params = {
     errorClass: 'popup__input-error_active'
 }
 
-const cardTemplate = document.querySelector('.card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
 const editPopup = document.querySelector('.popup_type_edit');
@@ -49,11 +48,12 @@ const inputUserJob = editPopup.querySelector('#popup__input_user-job');
 const userName = document.querySelector('.profile__name');
 const userJob = document.querySelector('.profile__job');
 
-const addPopup = document.querySelector('.popup_type_add')
+const addPopup = document.querySelector('.popup_type_add');
+const addForm = addPopup.querySelector('.popup__form-add');
 const inputCardrName = addPopup.querySelector('#popup__input_card-name');
 const inputCardLink = addPopup.querySelector('#popup__input_card-link');
 
-const imgPopup = document.querySelector('.popup_type_img')
+const imgPopup = document.querySelector('.popup_type_img');
 const increaseImg = imgPopup.querySelector('.popup__img');
 const captionImg = imgPopup.querySelector('.popup__img-caption');
 
@@ -70,7 +70,7 @@ function render() {
 
 //функция добавление карточки
 function renderItem(item) {
-    const card = new Card(item, '.card-template', openImgPopup);
+    const card = new Card(item, '.card-template');
     const cardElement = card.generateCard();
     cardsContainer.prepend(cardElement);
 }
@@ -82,7 +82,8 @@ function openEditPopup() {
     openPopup(editPopup);
 }
 
-function openImgPopup(title, link) {
+//функция открытия попапа с увеличенной картинкой
+export function openImgPopup(title, link) {
     captionImg.textContent = title;
     increaseImg.src = link;
     openPopup(imgPopup);
@@ -98,8 +99,7 @@ function closePopupEsc(evt) {
 
 //функция открытия попапа добавления карточек
 function openAddPopup() {
-    inputCardrName.value = '';
-    inputCardLink.value = '';
+    addForm.reset();
     openPopup(addPopup);
 }
 
@@ -108,26 +108,15 @@ function openAddPopup() {
 //функция открытия попапов
 function openPopup(popup) {
     popup.classList.add('popup_is-opened');
-    document.addEventListener('keydown', closePopupEsc);
-    popup.addEventListener('click', closePopupByClickOnOverlay);
+    document.addEventListener('keyup', closePopupEsc);
 }
 
 //функция закрытия попапов
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', closePopupEsc);
-    popup.removeEventListener('click', closePopupByClickOnOverlay);
+    document.removeEventListener('keyup', closePopupEsc);
 }
 
-//функция закрытия попапа, кликом на затемненную область
-function closePopupByClickOnOverlay(evt) {
-
-    if (evt.target !== evt.currentTarget) {
-        return;
-    }
-    const openedPopup = document.querySelector('.popup_is-opened');
-    closePopup(openedPopup);
-}
 
 //обработчик событий
 function setListeners() {
@@ -136,15 +125,21 @@ function setListeners() {
     //открытие попапа добавления карточек
     document.querySelector('.button_type_add').addEventListener('click', openAddPopup);
 
-    //закрытие попапов
-    editPopup.querySelector(".button_type_close").addEventListener("click", () => {
-        closePopup(editPopup)
+    //закрытие попапов кликом на крестик и оверлей
+    editPopup.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains('popup_type_edit') || evt.target.classList.contains('button__image')) {
+            closePopup(editPopup)
+        }
     });
-    addPopup.querySelector(".button_type_close").addEventListener("click", () => {
-        closePopup(addPopup)
+    addPopup.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains('popup_type_add') || evt.target.classList.contains('button__image')) {
+            closePopup(addPopup)
+        }
     });
-    imgPopup.querySelector(".button_type_close").addEventListener("click", () => {
-        closePopup(imgPopup)
+    imgPopup.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains('popup_type_img') || evt.target.classList.contains('button__image')) {
+            closePopup(imgPopup)
+        }
     });
 
     //отправка форм

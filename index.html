@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="./pages/index.css">
 
     <script src="./scripts/index.js" type="module"></script>
-    <script src="./scripts/Card.js" type="module"></script>
-    <script src="./scripts/FormValidator.js" type="module"></script>
 </head>
 
 <body class="root">
@@ -35,17 +33,6 @@
 
         <section class="cards">
             <ul class="cards__container">
-
-                <template class="card-template">
-                    <li class="cards__card">
-                        <img src="" alt="" class="cards__image">
-                        <button class="button button_type_delete"></button>
-                        <div class="cards__inner">
-                            <h2 class="cards__title"></h2>
-                            <button class="button button_type_like"></button>
-                        </div>
-                    </li>
-                </template>
 
             </ul>
         </section>
@@ -102,6 +89,17 @@
             <h3 class="popup__img-caption"></h3>
         </div>
     </div>
+
+    <template class="card-template">
+        <li class="cards__card">
+            <img src="" alt="" class="cards__image">
+            <button class="button button_type_delete"></button>
+            <div class="cards__inner">
+                <h2 class="cards__title"></h2>
+                <button class="button button_type_like"></button>
+            </div>
+        </li>
+    </template>
 </body>
 
 </html>

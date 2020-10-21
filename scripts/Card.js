@@ -1,9 +1,9 @@
+import { openImgPopup } from './index.js';
 export class Card {
-    constructor(data, cardSelector, openImgPopup) {
+    constructor(data, cardSelector) {
         this._cardSelector = cardSelector;
         this._title = data.name;
         this._image = data.link;
-        this._openImgPopup = openImgPopup;
     }
 
     _getTemplate() {
@@ -26,7 +26,7 @@ export class Card {
 
     _setEventListeners() {
         this._element.querySelector('.cards__image').addEventListener('click', () => {
-            this._openImgPopup(this._title, this._image);
+            openImgPopup(this._title, this._image);
         });
 
         this._element.querySelector('.button_type_like').addEventListener('click', this._handleLike);
