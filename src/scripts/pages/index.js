@@ -25,7 +25,8 @@ const getInfo = new UserInfo(selectorUserInfo);
 
 const editPopup = new PopupWithForm('.popup_type_edit', formSubmitHandlerEdit);
 document.querySelector('.button_type_edit').addEventListener('click', () => {
-    formEditValidator.hideInputError();
+    formEditValidator.hideInputError(document.querySelector('#popup__input_user-name'));
+    formEditValidator.hideInputError(document.querySelector('#popup__input_user-job'));
     formEditValidator.enabledButton();
     const dataUser = getInfo.getUserInfo();
     userNameInput.value = dataUser.name;
@@ -36,7 +37,8 @@ document.querySelector('.button_type_edit').addEventListener('click', () => {
 const addPopup = new PopupWithForm('.popup_type_add', formSubmitHandlerAdd);
 document.querySelector('.button_type_add').addEventListener('click', () => {
     document.querySelector('.popup_type_add').querySelector('.popup__form').reset();
-    formAddValidator.hideInputError();
+    formAddValidator.hideInputError(document.querySelector('#popup__input_card-name'));
+    formAddValidator.hideInputError(document.querySelector('#popup__input_card-link'));
     formAddValidator.disabledButton()
     addPopup.open();
 });

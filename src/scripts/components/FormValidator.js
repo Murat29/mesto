@@ -17,13 +17,11 @@ export class FormValidator {
 
     }
 
-    hideInputError() {
-        this._inputList.forEach((inputElement) => {
-            const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-            errorElement.textContent = '';
-            errorElement.classList.remove(this._errorClass);
-            inputElement.classList.remove(this._inputErrorClass);
-        });
+    hideInputError(inputElement) {
+        const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+        errorElement.textContent = '';
+        errorElement.classList.remove(this._errorClass);
+        inputElement.classList.remove(this._inputErrorClass);
     }
 
     _checkInputValidity(inputElement) {
@@ -33,7 +31,7 @@ export class FormValidator {
             const errorMessage = inputElement.validationMessage;
             this._showInputError(inputElement, errorMessage);
         } else {
-            this.hideInputError();
+            this.hideInputError(inputElement);
         }
     }
 
