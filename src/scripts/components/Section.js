@@ -4,6 +4,7 @@ export class Section {
         this._renderedItems = data;
         this._renderer = renderer;
         this._container = containerSelector;
+
     }
 
     setItemPrepend(element) {
@@ -16,6 +17,7 @@ export class Section {
 
 
     renderItems() {
+
         this._renderedItems.forEach(item => {
             this._renderer(item);
 

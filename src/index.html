@@ -14,15 +14,16 @@
 
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар.">
-
+            <div class="profile__avatar-conteiner">
+                <img class="profile__avatar" src="#" alt="Аватар.">
+            </div>
             <div class="profile__info">
                 <div class="profile__container">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <h1 class="profile__name"></h1>
                     <button class="button button_type_edit"></button>
                 </div>
 
-                <p class="profile__job">Исследователь океана</p>
+                <p class="profile__job"></p>
             </div>
 
             <button class="button button_type_add"></button>
@@ -39,7 +40,7 @@
         <address class="footer__copyright">&copy; 2020 Ходжатов Акмурат</address>
     </footer>
 
-    <div class="popup popup_type_edit ">
+    <div class="popup popup_type_edit">
         <div class="popup__container">
             <button class="button button_type_close">
                         <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
@@ -52,7 +53,7 @@
                     <span class="popup__input-error" id="popup__input_user-name-error">Вы пропустили это поле.</span>
                     <input class="popup__input" id="popup__input_user-job" name="job_user" minlength="2" maxlength="200" placeholder="Род деятельности" type="text" required>
                     <span class="popup__input-error" id="popup__input_user-job-error">Вы пропустили это поле.</span>
-                    <button class="button button_type_save">Сохранить</button>
+                    <button class="button button__sabmit button_type_save">Сохранить</button>
                 </fieldset>
             </form>
         </div>
@@ -71,7 +72,7 @@
                     <span class="popup__input-error" id="popup__input_card-name-error">Вы пропустили это поле.</span>
                     <input class="popup__input" id="popup__input_card-link" name="link" type="url" placeholder="Ссылка на картинку" required>
                     <span class="popup__input-error" id="popup__input_card-link-error">Вы пропустили это поле.</span>
-                    <button class="button button_type_add-card">Создать</button>
+                    <button class="button button__sabmit button_type_add-card">Создать</button>
                 </fieldset>
             </form>
         </div>
@@ -87,13 +88,47 @@
         </div>
     </div>
 
+    <div class="popup popup_type_edit-avatar">
+        <div class="popup__container">
+            <button class="button button_type_close">
+                        <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+                    </button>
+            <h2 class="popup__title">Обновить аватар</h2>
+
+            <form class="popup__form popup__form-edit-avatar" novalidate>
+                <fieldset class="popup__input-container">
+                    <input class="popup__input" id="popup__input_user-avatar" name="avatar_user" placeholder="Ссылка на аватар" type="url" required>
+                    <span class="popup__input-error" id="popup__input_user-avatar-error">Вы пропустили это поле.</span>
+                    <button class="button button__sabmit button_type_save">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_сonsent">
+        <div class="popup__container">
+            <button class="button button_type_close">
+                        <img class="button__image" src="./images/add-button.svg" alt="Закрыть форму.">
+                    </button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="button button__sabmit button_type_save" type="submit">Да</button>
+
+            </form>
+        </div>
+    </div>
+
+
     <template class="card-template">
         <li class="cards__card">
             <img src="#" alt="" class="cards__image">
             <button class="button button_type_delete"></button>
             <div class="cards__inner">
                 <h2 class="cards__title"></h2>
-                <button class="button button_type_like"></button>
+
+                <div class="card__like-container">
+                    <button class="button button_type_like"></button>
+                    <span class="card__like-number"></span>
+                </div>
             </div>
         </li>
     </template>

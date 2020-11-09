@@ -6,4 +6,5 @@
     right: 15px;
     background-color: black;
     background: url(../../../images/delete.svg) center no-repeat;
+    display: none;
 }
