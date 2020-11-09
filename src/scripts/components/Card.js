@@ -74,7 +74,6 @@ export class Card {
     }
 
     _deleteCard() {
-        console.log(this._api);
         this._api.deleteCard(this._cardId);
         this._element.remove();
         this.сonsentSabmit.removeEventListener('click', this._deleteCardWrapper);
