@@ -4,7 +4,10 @@ import {
     selectorUserInfo,
     cardsContainer,
     userNameInput,
-    userJobInput
+    userJobInput,
+    сonsentSabmitBatton,
+    formAddCard,
+    formEditAvatar,
 } from '../utils/constants.js';
 import { Api } from '../components/Api.js';
 import { Card } from '../components/Card.js';
@@ -21,39 +24,75 @@ const api = new Api({
         authorization: '923b3475-66ff-48a8-819e-62accc3d5c64',
         'Content-Type': 'application/json'
     }
-});
+})
 
+export { api }
 const imgPopup = new PopupWithImage('.popup_type_img');
 
-//рендер начальных карточек
-api.getCards().then(initialCards => {
-    const defaultCardList = new Section({ data: initialCards, renderer: rendererAppend }, cardsContainer);
-    defaultCardList.renderItems();
 
-    //функция для класса Section
-    function rendererAppend(item) {
-        const cardElement = rendererCard(item);
-        defaultCardList.setItemAppend(cardElement);
+const instanceСlassSection = new Section(renderer, cardsContainer);
+
+//функция для класса Section
+function renderer(item) {
+    const instanceСlassСard = new Card(item, '.card-template', imgPopup.handleCardClick.bind(imgPopup), сonsentPopup, myId, сonsentSabmitBatton, apiDeleteCard, apiLike);
+    const newCard = instanceСlassСard.generateCard()
+    instanceСlassSection.setItemPrepend(newCard);
+}
+
+function apiLike(isLike) {
+    if (isLike) {
+        return api.deleteLike(this._cardId)
+            .then(data => data)
+
+    } else {
+        return api.putLike(this._cardId)
+            .then(data => data)
     }
-});
+}
+
+function apiDeleteCard(cardId) {
+    return api.deleteCard(cardId)
+        .then(() => {
+            сonsentPopup.close();
+        })
+        .catch(err => {
+            alert(err);
+        });
+}
+
+//рендер начальных карточек
+api.getCards()
+    .then(result => {
+        const initialCardsList = result.reverse();
+        instanceСlassSection.renderItems(initialCardsList);
+    })
+    .catch(err => {
+        alert(err);
+    });
 
 const getInfo = new UserInfo(selectorUserInfo);
 
+let myId;
 
-api.getUser().then((result) => {
-    const userInfo = {
-        name_user: result.name,
-        job_user: result.about,
-    }
-    getInfo.setUserAvatar(result.avatar);
-    getInfo.setUserInfo(userInfo);
+//первоночальная отрисовка данных пользователя
+api.getUser()
+    .then((result) => {
+        myId = result._id;
+        const userInfo = {
+            name_user: result.name,
+            job_user: result.about,
+        }
+        getInfo.setUserAvatar(result.avatar);
+        getInfo.setUserInfo(userInfo);
 
-});
+    })
+    .catch(err => {
+        alert(err);
+    });
 
 const editPopup = new PopupWithForm('.popup_type_edit', formSubmitHandlerEdit);
 document.querySelector('.button_type_edit').addEventListener('click', () => {
-    formEditValidator.hideInputError(document.querySelector('#popup__input_user-name'));
-    formEditValidator.hideInputError(document.querySelector('#popup__input_user-job'));
+    formEditValidator.clearErrors();
     formEditValidator.enabledButton();
     const dataUser = getInfo.getUserInfo();
     userNameInput.value = dataUser.name;
@@ -63,17 +102,16 @@ document.querySelector('.button_type_edit').addEventListener('click', () => {
 
 const addPopup = new PopupWithForm('.popup_type_add', formSubmitHandlerAdd);
 document.querySelector('.button_type_add').addEventListener('click', () => {
-    document.querySelector('.popup_type_add').querySelector('.popup__form').reset();
-    formAddValidator.hideInputError(document.querySelector('#popup__input_card-name'));
-    formAddValidator.hideInputError(document.querySelector('#popup__input_card-link'));
+    formAddCard.reset();
+    formAddValidator.clearErrors()
     formAddValidator.disabledButton()
     addPopup.open();
 });
 
 const editAvatarPopup = new PopupWithForm('.popup_type_edit-avatar', formSubmitHandlerEditAvatar);
 document.querySelector('.profile__avatar-conteiner').addEventListener('click', () => {
-    document.querySelector('.popup_type_edit-avatar').querySelector('.popup__form').reset();
-    formEditAvatarValidator.hideInputError(document.querySelector('#popup__input_user-avatar'));
+    formEditAvatar.reset();
+    formEditAvatarValidator.clearErrors()
     formEditAvatarValidator.disabledButton()
     editAvatarPopup.open();
 });
@@ -92,53 +130,59 @@ const formEditAvatarValidator = new FormValidator(params.formEditAvatarSelector,
 formEditAvatarValidator.enableValidation();
 
 
-
-
-//функция для rendererPrepend и rendererAppend
-function rendererCard(item) {
-    const card = new Card(item, '.card-template', imgPopup.handleCardClick.bind(imgPopup), api, сonsentPopup);
-    return card.generateCard();
-}
-
 //сабмиты
 function formSubmitHandlerEdit(evt, dataUser) {
     renderLoading(true, evt)
-    api.editUser(dataUser).then(result => {
-        const dataUser = {
-            name_user: result.name,
-            job_user: result.about,
-            avatar_user: result.avatar,
-        }
-        getInfo.setUserInfo(dataUser);
-    })
-    renderLoading(false, evt)
-    editPopup.close();
+    api.editUser(dataUser)
+        .then(result => {
+            const dataUser = {
+                name_user: result.name,
+                job_user: result.about,
+                avatar_user: result.avatar,
+            }
+            getInfo.setUserInfo(dataUser);
+            editPopup.close();
+        })
+        .catch(err => {
+            alert(err);
+        })
+        .finally(() => {
+            renderLoading(false, evt)
+        });
 }
 
 function formSubmitHandlerAdd(evt, dataNewCard) {
     renderLoading(true, evt)
-    api.createCard(dataNewCard).then((data) => {
+    api.createCard(dataNewCard)
+        .then((data) => {
 
-        const newCard = new Section({ data: [data], renderer: rendererPrepend }, cardsContainer);
-        //функция для класса Section
-        function rendererPrepend(item) {
-            const cardElement = rendererCard(item);
-            newCard.setItemPrepend(cardElement);
-        }
+            instanceСlassSection.renderItems([data]);
+            addPopup.close();
+        })
+        .catch(err => {
+            alert(err);
+        })
+        .finally(() => {
+            renderLoading(false, evt)
+        });
 
-        newCard.renderItems();
-    });
-    renderLoading(false, evt)
-    addPopup.close();
 }
 
 function formSubmitHandlerEditAvatar(evt, DataAvatar) {
     renderLoading(true, evt)
-    api.editAvatar(DataAvatar.avatar_user).then((data) => {
-        getInfo.setUserAvatar(data.avatar);
-    });
+    api.editAvatar(DataAvatar.avatar_user)
+        .then((data) => {
+            getInfo.setUserAvatar(data.avatar);
+            editAvatarPopup.close();
+        })
+        .catch(err => {
+            alert(err);
+        })
+        .finally(() => {
+            renderLoading(false, evt)
+        });
     renderLoading(false, evt)
-    editAvatarPopup.close();
+
 }
 
 function renderLoading(isLoading, evt) {

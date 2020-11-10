@@ -4,8 +4,8 @@
     "description": "Это учебный проект, который откроет мне удивительный мир JavaScript.\r В нем реализованно открытие попапа, редактирование данных пользователя и закрытие.\r Так же этот проет должен закрепить мои навыки по адаптивной верстке.",
     "main": "index.js",
     "scripts": {
-        "build": "rm -rf dist && webpack --mode production",
-        "dev": "webpack-dev-server"
+        "build": "rimraf dist && webpack --mode production",
+        "dev": "webpack-dev-server --open"
     },
     "repository": {
         "type": "git",

@@ -47,7 +47,7 @@
                     </button>
             <h2 class="popup__title">Редактировать профиль</h2>
 
-            <form class="popup__form popup__form-edit" novalidate>
+            <form class="popup__form popup__form-edit" name="editInfoUser" novalidate>
                 <fieldset class="popup__input-container">
                     <input class="popup__input" id="popup__input_user-name" name="name_user" placeholder="Имя" minlength="2" maxlength="40" type="text" required>
                     <span class="popup__input-error" id="popup__input_user-name-error">Вы пропустили это поле.</span>
@@ -66,7 +66,7 @@
                     </button>
             <h2 class="popup__title">Новое место</h2>
 
-            <form class="popup__form popup__form-add" novalidate>
+            <form class="popup__form popup__form-add" name="addCard" novalidate>
                 <fieldset class="popup__input-container">
                     <input class="popup__input" id="popup__input_card-name" name="name" minlength="2" maxlength="30" type="text" placeholder="Название" required>
                     <span class="popup__input-error" id="popup__input_card-name-error">Вы пропустили это поле.</span>
@@ -95,7 +95,7 @@
                     </button>
             <h2 class="popup__title">Обновить аватар</h2>
 
-            <form class="popup__form popup__form-edit-avatar" novalidate>
+            <form class="popup__form popup__form-edit-avatar" name="editAvatarUser" novalidate>
                 <fieldset class="popup__input-container">
                     <input class="popup__input" id="popup__input_user-avatar" name="avatar_user" placeholder="Ссылка на аватар" type="url" required>
                     <span class="popup__input-error" id="popup__input_user-avatar-error">Вы пропустили это поле.</span>

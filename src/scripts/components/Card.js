@@ -1,5 +1,5 @@
 export class Card {
-    constructor(data, cardSelector, openImgPopup, api, сonsentPopup, ) {
+    constructor(data, cardSelector, openImgPopup, сonsentPopup, myId, сonsentSabmitBatton, apiDeleteCard, apiLike) {
         this._cardSelector = cardSelector;
         this._data = data;
         this._title = data.name;
@@ -7,10 +7,12 @@ export class Card {
         this._like = data.likes.length;
         this._openImgPopup = openImgPopup;
         this._ownerId = data.owner._id;
-        this._myId = 'fb3ae7f26f7cff796656e7e7';
+        this._myId = myId;
         this._cardId = data._id;
-        this._api = api;
         this._сonsentPopup = сonsentPopup;
+        this._сonsentSabmitBatton = сonsentSabmitBatton;
+        this._apiDeleteCard = apiDeleteCard;
+        this._apiLike = apiLike;
     }
 
     _getTemplate() {
@@ -30,24 +32,16 @@ export class Card {
             this._element.querySelector('.button_type_like').classList.remove('button_active');
         }
 
-
     }
 
     _handleLike() {
-        if (this._checkingLike(this._data)) {
-            this._api.deleteLike(this._cardId).then(data => {
-                this._installLike(data);
+        this._apiLike(this._checkingLike(this._data))
+            .then(data => {
                 this._data.likes = data.likes;
-
-            })
-        } else {
-            this._api.putLike(this._cardId).then(data => {
                 this._installLike(data);
-                this._data.likes = data.likes;
             })
-
-        }
     }
+
 
     _checkingLike(data) {
         this._chekLike = false;
@@ -65,19 +59,19 @@ export class Card {
             this._deleteCard();
         }
 
-        this.сonsentSabmit = document.querySelector('.popup_type_сonsent').querySelector('.button__sabmit')
-
-        this.сonsentSabmit.addEventListener('click', this._deleteCardWrapper);
+        this._сonsentSabmitBatton.addEventListener('click', this._deleteCardWrapper);
 
 
 
     }
 
     _deleteCard() {
-        this._api.deleteCard(this._cardId);
-        this._element.remove();
-        this.сonsentSabmit.removeEventListener('click', this._deleteCardWrapper);
-        this._сonsentPopup.close();
+        this._apiDeleteCard(this._cardId)
+            .then(() => {
+                this._element.remove();
+                this._сonsentSabmitBatton.removeEventListener('click', this._deleteCardWrapper);
+            })
+
     }
 
     _setEventListeners() {
