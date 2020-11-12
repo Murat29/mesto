@@ -43,10 +43,16 @@ function apiLike(isLike) {
     if (isLike) {
         return api.deleteLike(this._cardId)
             .then(data => data)
+            .catch(err => {
+                alert(err);
+            });
 
     } else {
         return api.putLike(this._cardId)
             .then(data => data)
+            .catch(err => {
+                alert(err);
+            });
     }
 }
 
