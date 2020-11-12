@@ -181,8 +181,6 @@ function formSubmitHandlerEditAvatar(evt, DataAvatar) {
         .finally(() => {
             renderLoading(false, evt)
         });
-    renderLoading(false, evt)
-
 }
 
 function renderLoading(isLoading, evt) {

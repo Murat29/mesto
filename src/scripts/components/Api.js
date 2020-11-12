@@ -6,11 +6,9 @@ export class Api {
 
     getUser() {
         return fetch(`${this.url}/users/me`, {
-                headers: this.headers
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            headers: this.headers
+        }).then(this._getResponseData)
+
     }
 
     editUser(dataUser) {
@@ -24,63 +22,51 @@ export class Api {
 
     getCards() {
         return fetch(`${this.url}/cards`, {
-                headers: this.headers
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            headers: this.headers
+        }).then(this._getResponseData)
+
     }
 
     createCard(dataCard) {
         return fetch(`${this.url}/cards`, {
-                method: "POST",
-                headers: this.headers,
-                body: JSON.stringify({ name: dataCard.name, link: dataCard.link })
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify({ name: dataCard.name, link: dataCard.link })
+        }).then(this._getResponseData)
+
     }
 
     deleteCard(id) {
         return fetch(`${this.url}/cards/${id}`, {
-                method: "DELETE",
-                headers: this.headers,
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            method: "DELETE",
+            headers: this.headers,
+        }).then(this._getResponseData)
+
     }
 
     putLike(id) {
         return fetch(`${this.url}/cards/likes/${id}`, {
-                method: "PUT",
-                headers: this.headers,
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            method: "PUT",
+            headers: this.headers,
+        }).then(this._getResponseData)
+
     }
 
     deleteLike(id) {
         return fetch(`${this.url}/cards/likes/${id}`, {
-                method: "DELETE",
-                headers: this.headers,
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            method: "DELETE",
+            headers: this.headers,
+        }).then(this._getResponseData)
+
     }
 
     editAvatar(avatarUrl) {
         return fetch(`${this.url}/users/me/avatar`, {
-                method: "PATCH",
-                headers: this.headers,
-                body: JSON.stringify({ avatar: avatarUrl })
-            }).then(this._getResponseData)
-            .catch(err => {
-                alert(err);
-            })
+            method: "PATCH",
+            headers: this.headers,
+            body: JSON.stringify({ avatar: avatarUrl })
+        }).then(this._getResponseData)
+
     }
 
     _getResponseData(res) {
