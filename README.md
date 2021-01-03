@@ -15,6 +15,9 @@
 * CSS
 * JavaScript
 
+### Бэкенд
+Бэкенд предоставил Яндекс.Практикум.
+
 ### Ссылка 
 
 https://murat29.github.io/mesto/
